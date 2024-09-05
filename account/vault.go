@@ -77,10 +77,10 @@ func (vault *VaultWithDb) DeleteAccountByURL(url string) bool {
 
 }
 
-func (vault *VaultWithDb) FindAccountsByURL(url string) []Account {
+func (vault *VaultWithDb) FindAccounts(str string, checker func(Account, string) bool) []Account {
 	var accounts []Account
 	for _, account := range vault.Accounts {
-		isMatched := strings.Contains(account.Url, url)
+		isMatched := checker(account, str)
 		if isMatched {
 			accounts = append(accounts, account)
 		}
